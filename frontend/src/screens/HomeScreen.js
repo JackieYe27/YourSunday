@@ -1,28 +1,40 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Row, Col } from "react-bootstrap";
 import Product from "../components/Product";
+import { listProducts } from "../actions/productAction";
 
 const HomeScreen = () => {
-  const [products, setProducts] = useState([]);
+  // const [products, setProducts] = useState([]);
+  const dispatch = useDispatch();
+  
+  const productList = useSelector((state) => {
+    return state.productList;
+  });
 
-  const fetchData = async () => {
-    try {
-      const response = await fetch("/api/products");
-      const newProducts = await response.json();
-      setProducts(newProducts);
-    } catch (error) {
-      console.log("There has been an error with fetching data!");
-    }
-  }
+  const { loading, error, products } = productList;
+
+  // const fetchData = async () => {
+  //   try {
+  //     const response = await fetch("/api/products");
+  //     const newProducts = await response.json();
+  //     setProducts(newProducts);
+  //   } catch (error) {
+  //     console.log("There has been an error with fetching data!");
+  //   }
+  // }
 
   useEffect(() => {
-    fetchData();
-  },[]);
+    // fetchData();
+    dispatch(listProducts());
+  },[dispatch]);
+
 
   return (
     <div>
       <h1>Latest Products</h1>
-      <Row>
+      {loading ? <h1>Loading...</h1> : error ? <h3>{error}</h3> : 
+        <Row>
         {
           products.map(product => {
             return (
@@ -33,6 +45,7 @@ const HomeScreen = () => {
           })
         }
       </Row>
+      }
     </div>
   )
 }
