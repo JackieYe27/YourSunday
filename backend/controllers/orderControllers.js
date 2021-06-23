@@ -14,6 +14,7 @@ const addOrderItems = asyncHandler(async(req,res) => {
     return;
   } else {
     const order = new Order({
+      orderItems,
       shippingAddress, 
       user: req.user._id,
       paymentMethod, 
