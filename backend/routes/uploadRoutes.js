@@ -14,11 +14,11 @@ const storage = multer.diskStorage({
 })
 
 const checkFileType = (file, cb) => {
-  const fileTypes = /jpg|jpeg|png/
-  const extname = fileTypes.test(path.extname(file.originalname).toLocaleLowerCase());
-  const mimeType = fileTypes.test(file.mimetype);
+  const filetypes = /jpg|jpeg|png/
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+  const mimetype = filetypes.test(file.mimetype);
 
-  if (extname && mimeType) {
+  if (extname && mimetype) {
     return cb(null, true)
   } else {
     cb("Images only!");
