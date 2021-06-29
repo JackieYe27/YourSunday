@@ -28,7 +28,6 @@ const PlaceOrderScreen = ({ history }) => {
   const {order, success, error} = orderCreate;
 
   useEffect(() => {
-    console.log(cart.cartItems);
     if (success) {
       history.push(`/order/${order._id}`)
     }
