@@ -6,7 +6,9 @@ import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { listProducts } from "../actions/productAction";
 
-const HomeScreen = () => {
+const HomeScreen = ({ match }) => {
+
+  const keyword = match.params.keyword;
   // const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
   
@@ -28,8 +30,8 @@ const HomeScreen = () => {
 
   useEffect(() => {
     // fetchData();
-    dispatch(listProducts());
-  },[dispatch]);
+    dispatch(listProducts(keyword));
+  },[dispatch, keyword]);
 
 
   return (
