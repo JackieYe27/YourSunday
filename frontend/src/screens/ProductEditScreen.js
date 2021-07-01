@@ -7,7 +7,7 @@ import Message from "../components/Message";
 import Loader from "../components/Loader";
 import FormContainer from "../components/FormContainer";
 import { listProductDetails, updateProduct } from "../actions/productAction";
-import { PRODUCT_UPDATE_RESET } from "../constants/productConstants";
+import { PRODUCT_DETAILS_RESET, PRODUCT_UPDATE_RESET } from "../constants/productConstants";
 
 
 const ProductEditScreen = ({ match, history }) => {
@@ -35,6 +35,7 @@ const ProductEditScreen = ({ match, history }) => {
   useEffect(() => {
     if(successUpdate) {
       dispatch({ type: PRODUCT_UPDATE_RESET });
+      dispatch({ type: PRODUCT_DETAILS_RESET });
       history.push("/admin/productlist");
     } else {
       if (!product.name || product._id !== productId) {
@@ -122,7 +123,7 @@ const ProductEditScreen = ({ match, history }) => {
             value ={image} 
             onChange={(e) => setImage(e.target.value)}>
           </Form.Control>
-          <Form.File className="form-control" type="file" id="image-file" custom onChange={uploadFileHandler}></Form.File>
+          <input className="form-control" type="file" id="image-file" custom onChange={uploadFileHandler}></input>
           {uploading && <Loader />}
         </Form.Group>
         <Form.Group controlId="brand">
