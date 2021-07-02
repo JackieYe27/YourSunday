@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col } from "react-bootstrap";
@@ -8,11 +8,13 @@ import Loader from "../components/Loader";
 import Paginate from "../components/Paginate";
 import Meta from "../components/Meta";
 import ProductCarousel from "../components/ProductCarousel";
+import Categories from "../components/Categories";
 
 import { listProducts } from "../actions/productAction";
 
-const HomeScreen = ({ match }) => {
 
+
+const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword;
   // const [products, setProducts] = useState([]);
 
@@ -35,22 +37,40 @@ const HomeScreen = ({ match }) => {
   //   }
   // }
 
+  const allCategories = ["All", ...new Set(products.map(product => {
+    return product.category
+  }))]
+
+  const [showProducts, setShowProducts] = useState(products);
+
+  const filterItems = (category) => {
+    if(category === "All") {
+      setShowProducts(products);
+    } else {
+      const newProducts = products.filter(product => {
+        return product.category.toLowerCase() === category.toLowerCase();
+      })
+      setShowProducts(newProducts);
+    }
+  }
+
   useEffect(() => {
     // fetchData();
     dispatch(listProducts(keyword, pageNumber));
+    setShowProducts(products);
   },[dispatch, keyword, pageNumber]);
-
 
   return (
     <div>
       <Meta />
       {!keyword ? <ProductCarousel /> : <Link to="/" className="btn btn-light">Go Back</Link>}
-      <h1>Latest Products</h1>
+      <Categories categories={allCategories} filterItems={filterItems}/>
+      <h1 onClick={() => setShowProducts(products)}>Sunday Products</h1>
       {loading ? <Loader /> : error ? <Message variant="danger" >{error}</Message> : 
       <div>
         <Row>
         {
-          products.map(product => {
+          showProducts.map(product => {
             return (
             <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
               <Product product={product} />
