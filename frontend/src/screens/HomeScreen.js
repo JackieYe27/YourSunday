@@ -64,7 +64,7 @@ const HomeScreen = ({ match }) => {
   return (
     <div>
       <Meta />
-      <Hero />
+      <Hero products={products} setShowProducts={setShowProducts}/>
       {!keyword ? <ProductCarousel /> : <Link to="/" className="btn btn-light">Go Back</Link>}
       <Categories categories={allCategories} filterItems={filterItems}/>
       <h1 onClick={() => setShowProducts(products)}>Sunday Products</h1>

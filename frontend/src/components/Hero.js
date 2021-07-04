@@ -1,9 +1,95 @@
-import React from "react";
+import React, { useState } from "react";
+import styled from "styled-components";
+import Loader from "./Loader";
+import Message from "./Message";
+import { Button, Image } from "react-bootstrap";
 
-const Hero = () => {
+const Hero = ({ products, setShowProducts }) => {
+  
+  const handleClick = () => {
+    setShowProducts(products);
+  }
   return (
-    <div>Hero</div>
+    <Wrapper>
+      <article className="content">
+        <h1>Crete the Happiest<br/>Memories</h1>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
+          incididunt ut labore et dolore magna aliqua. Etiam erat velit scelerisque in dictum non consectetur a. 
+          Ornare massa eget egestas purus. Faucibus vitae aliquet nec ullamcorper. 
+          Diam in arcu cursus euismod quis viverra nibh cras pulvinar.
+        </p>
+        <Button className="btn hero-btn" onClick={handleClick}>Shop Now!</Button>
+      </article>
+      <article className="img-container">
+        <img src="https://i.ibb.co/vvPPSgv/cherry-blossoms.jpg" alt="baby hero" className="main-img"/>
+        <img src="https://i.ibb.co/HdvcL29/product2.jpg" alt="baby hero2" className="accent-img"/>
+      </article>
+    </Wrapper>
   )
 }
+
+const Wrapper = styled.section`
+  min-height: 60vh;
+  display:grid;
+  place-items: center;
+  .img-container {
+    display:none;
+  }
+
+  p {
+    line-height: 2;
+    margin-bottom: 2rem;
+    color: var(--clr-grey-5);
+    font-size: 1rem;
+  }
+
+  @media (min-width: 992px) {
+    height: calc(100vh - 5rem);
+    grid-template-columns: 1fr 1fr;
+    gap: 8rem;
+  }
+  h1 {
+    margin-botton: 2rem;
+  }
+  p {
+    font-size: 1.25rem;
+  }
+  .hero-btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+  }
+  .img-container {
+    display: block;
+    position: relative;
+  }
+  .main-img {
+    width: 100%;
+    height: 550px;
+    position: relative;
+    border-radius: var(--radius);
+    display: block;
+    object-fit: cover;
+  }
+  .accent-img {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 250px;
+    transform: translateX(-50%);
+    border-radius: var(--radius);
+  }
+  .img-container::before {
+    content: "";
+    position: absolute;
+    width: 10%;
+    height: 80%;
+    background: #fbc6d0;
+    bottom: 0%;
+    left: -8%;
+    border-radius: var(--radius);
+  }
+}
+`
 
 export default Hero;
