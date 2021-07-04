@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import Loader from "./Loader";
-import Message from "./Message";
-import { Button, Image } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
-const Hero = ({ products, setShowProducts }) => {
+const Hero = ({ products, setShowProducts, scrollTo }) => {
+  
   
   const handleClick = () => {
     setShowProducts(products);
+    scrollTo.scrollIntoView({behavior: "smooth", block: 'center', inline: 'start'});
   }
   return (
     <Wrapper>

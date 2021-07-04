@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col } from "react-bootstrap";
@@ -16,6 +16,9 @@ import Hero from "../components/Hero";
 
 
 const HomeScreen = ({ match }) => {
+  const scrollTarget = useRef(null);
+  const scrollTo = scrollTarget.current;
+  
   const keyword = match.params.keyword;
   // const [products, setProducts] = useState([]);
 
@@ -64,10 +67,10 @@ const HomeScreen = ({ match }) => {
   return (
     <div>
       <Meta />
-      <Hero products={products} setShowProducts={setShowProducts}/>
+      <Hero products={products} setShowProducts={setShowProducts} scrollTo={scrollTo}/>
       {!keyword ? <ProductCarousel /> : <Link to="/" className="btn btn-light">Go Back</Link>}
-      <Categories categories={allCategories} filterItems={filterItems}/>
-      <h1 onClick={() => setShowProducts(products)}>Sunday Products</h1>
+      <Categories categories={allCategories} filterItems={filterItems} />
+      <h1 onClick={() => setShowProducts(products)} ref={scrollTarget} id="scroll">Sunday Products</h1>
       {loading ? <Loader /> : error ? <Message variant="danger" >{error}</Message> : 
       <div>
         <Row>
