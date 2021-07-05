@@ -10,7 +10,7 @@ import Meta from "../components/Meta";
 import ProductCarousel from "../components/ProductCarousel";
 import Categories from "../components/Categories";
 
-import { listProducts } from "../actions/productAction";
+import { listProducts, listCategoryProducts } from "../actions/productAction";
 import Hero from "../components/Hero";
 
 
@@ -31,6 +31,13 @@ const HomeScreen = ({ match }) => {
   });
   const { loading, error, products, page, pages } = productList;
 
+  const productCategory = useSelector((state) => {
+    return state.productCategory;
+  });
+
+  const {categoryProducts} = productCategory;
+  
+
   // const fetchData = async () => {
   //   try {
   //     const response = await fetch("/api/products");
@@ -45,37 +52,40 @@ const HomeScreen = ({ match }) => {
     return product.category
   }))]
 
-  const [showProducts, setShowProducts] = useState(products);
+  const [showAll, setShowAll] = useState(true);
 
   const filterItems = (category) => {
     if(category === "All") {
-      setShowProducts(products);
+      setShowAll(true);
     } else {
-      const newProducts = products.filter(product => {
-        return product.category.toLowerCase() === category.toLowerCase();
-      })
-      setShowProducts(newProducts);
+      dispatch(listCategoryProducts(category));
+      setShowAll(false);
     }
   }
 
   useEffect(() => {
     // fetchData();
     dispatch(listProducts(keyword, pageNumber));
-    setShowProducts(products);
   },[dispatch, keyword, pageNumber]);
 
   return (
     <div>
       <Meta />
-      <Hero products={products} setShowProducts={setShowProducts} scrollTo={scrollTo}/>
+      {!keyword && <Hero products={products} scrollTo={scrollTo}/>}
       {!keyword ? <ProductCarousel /> : <Link to="/" className="btn btn-light">Go Back</Link>}
-      <Categories categories={allCategories} filterItems={filterItems} />
-      <h1 onClick={() => setShowProducts(products)} ref={scrollTarget} id="scroll">Sunday Products</h1>
+      {!keyword && <Categories categories={allCategories} filterItems={filterItems} />}
+      <h1 ref={scrollTarget} id="scroll">Sunday Products</h1>
       {loading ? <Loader /> : error ? <Message variant="danger" >{error}</Message> : 
       <div>
         <Row>
-        {
-          showProducts.map(product => {
+        { categoryProducts && !showAll ? categoryProducts.map(product => {
+            return (
+            <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+              <Product product={product} />
+            </Col>
+            )
+          }) :
+          products.map(product => {
             return (
             <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
               <Product product={product} />

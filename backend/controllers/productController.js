@@ -10,14 +10,21 @@ const getProducts = asyncHandler(async(req,res) => {
 
 
   const keyword = req.query.keyword ? {
-    name: {
-      $regex: req.query.keyword,
-      $options: "i"
-    }
-  } : {}
+          name: {
+            $regex: req.query.keyword,
+            $options: "i"
+          }
+    } : {}
+
+    const keyword2 = req.query.keyword ? {
+          category: {
+            $regex: req.query.keyword,
+            $options: "i"
+          }
+    }: {}
 
   const count = await Product.countDocuments({ ...keyword });
-  const products = await Product.find({ ...keyword }).limit(pageSize).skip(pageSize * (page-1));
+  const products = await Product.find({ $or: [{ ...keyword }, { ...keyword2 }] }).limit(pageSize).skip(pageSize * (page-1));
   res.json({ products, page, pages:Math.ceil(count / pageSize) });
 });
 
@@ -133,5 +140,17 @@ const getTopProducts = asyncHandler(async(req,res) => {
   res.json(products);
 });
 
+// Get products by category
+// route: GET /api/products/:category
+const getCategoryProducts = asyncHandler(async(req,res) => {
+  const products = await Product.find({category: req.params.category});
+  if (products) {
+    res.json(products);
+  } else {
+    res.status(404);
+    throw new Error("Product not found.");
+  }
+});
 
-export { getProducts, getProductById, deleteProduct, createProduct, updateProduct, createProductReview, getTopProducts } 
+
+export { getProducts, getProductById, deleteProduct, createProduct, updateProduct, createProductReview, getTopProducts, getCategoryProducts } 

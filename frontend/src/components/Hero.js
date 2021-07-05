@@ -2,11 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import { Button } from "react-bootstrap";
 
-const Hero = ({ products, setShowProducts, scrollTo }) => {
+const Hero = ({ scrollTo }) => {
   
   
   const handleClick = () => {
-    setShowProducts(products);
     scrollTo.scrollIntoView({behavior: "smooth", block: 'center', inline: 'start'});
   }
   return (
