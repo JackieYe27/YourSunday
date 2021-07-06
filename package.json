@@ -29,6 +29,7 @@
   "homepage": "https://github.com/JackieYe27/YourSunday#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "cloudinary": "^1.26.2",
     "colors": "^1.4.0",
     "concurrently": "^6.2.0",
     "dotenv": "^10.0.0",

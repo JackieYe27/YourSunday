@@ -123,7 +123,7 @@ const ProductEditScreen = ({ match, history }) => {
             value ={image} 
             onChange={(e) => setImage(e.target.value)}>
           </Form.Control>
-          <input className="form-control" type="file" id="image-file" custom onChange={uploadFileHandler}></input>
+          <input className="form-control" type="file" id="image-file" onChange={uploadFileHandler}></input>
           {uploading && <Loader />}
         </Form.Group>
         <Form.Group controlId="brand">
