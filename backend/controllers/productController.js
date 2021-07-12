@@ -65,7 +65,7 @@ const createProduct = asyncHandler(async(req,res) => {
     user: req.user._id,
     image:"/images/sample.jpg",
     brand: "sample brand",
-    category:"Samle category",
+    category:{mainCategory: "Main", subCategory: "sub"},
     countInStock: 0,
     numReviews: 0,
     description: "Sample description"
@@ -78,8 +78,7 @@ const createProduct = asyncHandler(async(req,res) => {
 // Update a product
 // route: PUT /api/products/:id
 const updateProduct = asyncHandler(async(req,res) => {
-  const {name, price, description, image, brand, category, countInStock} = req.body;
-
+  const {name, price, description, image, brand, mainCategory, subCategory, countInStock} = req.body;
   const product = await Product.findById(req.params.id);
 
   if (product) {
@@ -88,7 +87,8 @@ const updateProduct = asyncHandler(async(req,res) => {
     product.description = description;
     product.brand = brand;
     product.image = image;
-    product.category = category;
+    product.category.mainCategory = mainCategory;
+    product.category.subCategory = subCategory;
     product.countInStock = countInStock;
 
     const updatedProduct = await product.save();
@@ -143,7 +143,8 @@ const getTopProducts = asyncHandler(async(req,res) => {
 // Get products by category
 // route: GET /api/products/:category
 const getCategoryProducts = asyncHandler(async(req,res) => {
-  const products = await Product.find({category: req.params.category});
+  const products = await Product.find({"category.mainCategory": req.params.category});
+  console.log(products);
   if (products) {
     res.json(products);
   } else {

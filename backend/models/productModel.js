@@ -11,7 +11,7 @@ const reviewSchema = new mongoose.Schema({
   }
 }, {
   timestamps:true
-})
+});
 
 const productSchema = new mongoose.Schema({
   user: {
@@ -32,8 +32,13 @@ const productSchema = new mongoose.Schema({
     required: true
   },
   category: {
-    type: String,
-    required: true
+    mainCategory: {
+      type: String,
+      require: true
+    },
+    subCategory: {
+      type: String
+    }
   },
   description: {
     type: String,

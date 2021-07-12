@@ -37,7 +37,6 @@ const HomeScreen = ({ match }) => {
 
   const {categoryProducts} = productCategory;
   
-
   // const fetchData = async () => {
   //   try {
   //     const response = await fetch("/api/products");
@@ -49,7 +48,7 @@ const HomeScreen = ({ match }) => {
   // }
 
   const allCategories = ["All", ...new Set(products.map(product => {
-    return product.category
+    return product.category.mainCategory;
   }))]
 
   const [showAll, setShowAll] = useState(true);

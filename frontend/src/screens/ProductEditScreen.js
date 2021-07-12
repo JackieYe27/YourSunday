@@ -16,7 +16,8 @@ const ProductEditScreen = ({ match, history }) => {
   const [price, setPrice] = useState(0);
   const [image, setImage] = useState("");
   const [brand, setBrand] = useState("");
-  const [category, setCategory] = useState("");
+  const [mainCategory, setMainCategory] = useState("");
+  const [subCategory, setSubCategory] = useState("");
   const [countInStock, setCountInStock] = useState(0);
   const [description, setDescription] = useState(0);
   const [uploading, setUploading] = useState(false);
@@ -45,7 +46,8 @@ const ProductEditScreen = ({ match, history }) => {
         setPrice(product.price);
         setImage(product.image);
         setBrand(product.brand);
-        setCategory(product.category);
+        setMainCategory(product.category.mainCategory);
+        setSubCategory(product.category.subCategory);
         setCountInStock(product.countInStock);
         setDescription(product.description);
       }
@@ -81,7 +83,8 @@ const ProductEditScreen = ({ match, history }) => {
       price,
       image,
       brand,
-      category,
+      mainCategory,
+      subCategory,
       description,
       countInStock
     }))
@@ -144,13 +147,22 @@ const ProductEditScreen = ({ match, history }) => {
             onChange={(e) => setCountInStock(e.target.value)}>
           </Form.Control>
         </Form.Group>
-        <Form.Group controlId="category">
-        <Form.Label className="form-label mt-2">Category:</Form.Label>
+        <Form.Group controlId="main-category">
+        <Form.Label className="form-label mt-2">Category(Main):</Form.Label>
           <Form.Control 
             type="text" 
-            placeholder="Enter category" 
-            value ={category} 
-            onChange={(e) => setCategory(e.target.value)}>
+            placeholder="Enter main category" 
+            value ={mainCategory} 
+            onChange={(e) => setMainCategory(e.target.value)}>
+          </Form.Control>
+        </Form.Group>
+        <Form.Group controlId="sub-category">
+        <Form.Label className="form-label mt-2">Category(Sub):</Form.Label>
+          <Form.Control 
+            type="text" 
+            placeholder="Enter sub category" 
+            value ={subCategory} 
+            onChange={(e) => setSubCategory(e.target.value)}>
           </Form.Control>
         </Form.Group>
         <Form.Group controlId="description">
