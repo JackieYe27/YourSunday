@@ -21,8 +21,8 @@ const Hero = ({ scrollTo }) => {
         <Button className="btn hero-btn" onClick={handleClick}>Shop Now!</Button>
       </article>
       <article className="img-container">
-        <img src="https://i.ibb.co/vvPPSgv/cherry-blossoms.jpg" alt="baby hero" className="main-img"/>
-        <img src="https://i.ibb.co/HdvcL29/product2.jpg" alt="baby hero2" className="accent-img"/>
+        <img src="https://i.ibb.co/q529gxd/pexels-pixabay-459957.jpg" alt="baby hero" className="main-img"/>
+        <img src="https://i.ibb.co/gyRxGt6/pexels-cottonbro-3661268.jpg" alt="baby hero2" className="accent-img"/>
       </article>
     </Wrapper>
   )

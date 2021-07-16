@@ -9,7 +9,7 @@ import Paginate from "../components/Paginate";
 import Meta from "../components/Meta";
 import ProductCarousel from "../components/ProductCarousel";
 import Categories from "../components/Categories";
-
+import SubCategory from "../components/SubCategory";
 import { listProducts, listCategoryProducts } from "../actions/productAction";
 import Hero from "../components/Hero";
 
@@ -52,7 +52,14 @@ const HomeScreen = ({ match }) => {
   }))]
 
   const [showAll, setShowAll] = useState(true);
+  const [isSubCategoryOpen, setIsSubCategoryOpen] = useState(false);
+  const [location, setLocation] = useState({});
 
+  const openSubCategory = (text, coordinates) => {
+    setLocation(coordinates);
+    setIsSubCategoryOpen(true);
+  }
+ 
   const filterItems = (category) => {
     if(category === "All") {
       setShowAll(true);
@@ -72,7 +79,7 @@ const HomeScreen = ({ match }) => {
       <Meta />
       {!keyword && <Hero products={products} scrollTo={scrollTo}/>}
       {!keyword ? <ProductCarousel /> : <Link to="/" className="btn btn-light">Go Back</Link>}
-      {!keyword && <Categories categories={allCategories} filterItems={filterItems} />}
+      {!keyword && <Categories categories={allCategories} filterItems={filterItems} openSubCategory={openSubCategory} />}
       <h1 ref={scrollTarget} id="scroll">Sunday Products</h1>
       {loading ? <Loader /> : error ? <Message variant="danger" >{error}</Message> : 
       <div>

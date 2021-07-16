@@ -144,7 +144,6 @@ const getTopProducts = asyncHandler(async(req,res) => {
 // route: GET /api/products/:category
 const getCategoryProducts = asyncHandler(async(req,res) => {
   const products = await Product.find({"category.mainCategory": req.params.category});
-  console.log(products);
   if (products) {
     res.json(products);
   } else {
