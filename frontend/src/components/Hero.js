@@ -22,11 +22,12 @@ const Hero = ({ scrollTo }) => {
       </article>
       <article className="img-container">
         <img src="https://i.ibb.co/q529gxd/pexels-pixabay-459957.jpg" alt="baby hero" className="main-img"/>
-        <img src="https://i.ibb.co/gyRxGt6/pexels-cottonbro-3661268.jpg" alt="baby hero2" className="accent-img"/>
+        <img src="https://i.ibb.co/VJDrQf4/pexels-cottonbro-3662667.jpg" alt="baby hero2" className="accent-img"/>
       </article>
     </Wrapper>
   )
 }
+
 
 const Wrapper = styled.section`
   min-height: 60vh;
