@@ -11,12 +11,11 @@ const Hero = ({ scrollTo }) => {
   return (
     <Wrapper>
       <article className="content">
-        <h1>Crete the Happiest<br/>Memories</h1>
+        <h1>Create the Happiest<br/>Memories</h1>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
-          incididunt ut labore et dolore magna aliqua. Etiam erat velit scelerisque in dictum non consectetur a. 
-          Ornare massa eget egestas purus. Faucibus vitae aliquet nec ullamcorper. 
-          Diam in arcu cursus euismod quis viverra nibh cras pulvinar.
+          <strong>Our Mission:</strong> To create a shop for all your baby needs! From comfortable and stylish clothing to
+          swaddle blankets that will hug even adults to sleep, we strive to provide the best. Your friends and family will be asking
+          you where you shop for your sweet mini me.
         </p>
         <Button className="btn hero-btn" onClick={handleClick}>Shop Now!</Button>
       </article>
